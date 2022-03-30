@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  prosgres-container:
+    image: postgres:10
+    environment:
+      POSTGRES_USER: "marcio"
+      POSTGRES_PASSWORD: "marcio123"
+      POSTGRES_DB: "data_marcio"
+    ports:
+      - "5432:5432"
+    networks:
+      - pg-network
+
+  pgadmin-container:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "marcio@datamarcio.inc"
+      PGADMIN_DEFAULT_PASSWORD: "marcio123"
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres-container
+    networks:
+      - pg-network
+
+networks:
+  pg-network:
+    driver: bridge
